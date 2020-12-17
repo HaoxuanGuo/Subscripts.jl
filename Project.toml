@@ -2,3 +2,6 @@ name = "Subscripts"
 uuid = "2b7f82d5-8785-4f63-971e-f18ddbeb808e"
 authors = ["Haoxuan Guo <kuohaoxuan@outlook.com>"]
 version = "0.1.1"
+
+[compat]
+julia = "^1.5"
