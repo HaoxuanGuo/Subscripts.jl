@@ -1,6 +1,6 @@
 module Subscripts
 
-export super, sub
+export super, sub, recover
 
 super_chars = ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹']
   sub_chars = ['₀', '₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉']
