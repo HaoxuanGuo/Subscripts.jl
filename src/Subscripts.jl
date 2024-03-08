@@ -2,39 +2,22 @@ module Subscripts
 
 export super, sub, recover
 
-super_chars = ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹']
-  sub_chars = ['₀', '₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉']
+_dict_inv(d) = Dict(v=>k for (k,v) in d)
 
-function super(s)
-    res = ""
+const super_chars = Dict('0'=>'⁰', '1'=>'¹', '2'=>'²', '3'=>'³', '4'=>'⁴', '5'=>'⁵', '6'=>'⁶', '7'=>'⁷', '8'=>'⁸', '9'=>'⁹', '-'=>'⁻')
+const   sub_chars = Dict('0'=>'₀', '1'=>'₁', '2'=>'₂', '3'=>'₃', '4'=>'₄', '5'=>'₅', '6'=>'₆', '7'=>'₇', '8'=>'₈', '9'=>'₉')
+const recover_chars = _dict_inv(super_chars) ∪ _dict_inv(sub_chars)
+
+function _str_replace(d, s)
+    io = IOBuffer()
     for c in s
-        if c >= '0' && c <= '9'
-            res *= super_chars[c - '0' + 1]
-        end
+        write(io, get(d, c, ""))
     end
-    return res
+    String(take!(io))
 end
 
-function sub(s)
-    res = ""
-    for c in s
-        if c >= '0' && c <= '9'
-            res *= sub_chars[c - '0' + 1]
-        end
-    end
-    return res
-end
-
-function recover(s::String)
-    res = ""
-    for c in s
-        for i in 1:length(super_chars)
-            if c == super_chars[i] || c == sub_chars[i]
-                res *= '0' + i - 1
-            end
-        end
-    end
-    return res
-end
+super(s) = _str_replace(super_chars, s)
+sub(s) = _str_replace(sub_chars, s)
+recover(s) = _str_replace(recover_chars, s)
 
 end # module
